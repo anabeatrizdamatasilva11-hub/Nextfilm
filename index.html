@@ -1,167 +1,442 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXTFILM</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="NEXTFILM - A melhor plataforma de filmes e séries do mundo">
+    <title>NEXTFILM - Plataforma de Streaming</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #141414;
+            color: #fff;
+        }
+
+        .container {
+            width: 100%;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+
+        .header.scrolled {
+            background-color: #141414;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .menu {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            flex: 1;
+            justify-content: space-between;
+            margin-left: 40px;
+        }
+
+        .menu ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .menu-left li,
+        .menu-right li {
+            cursor: pointer;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .menu-left li:hover,
+        .menu-right li:hover {
+            color: #b3b3b3;
+        }
+
+        .menu-right .user {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .menu-right .user img {
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+        }
+
+        /* Hero/Banner */
+        .hero {
+            padding-top: 80px;
+        }
+
+        .banner {
+            position: relative;
+            height: 70vh;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(20,20,20,1)),
+                        url('./Imagens/banner.1.jpg') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 50px;
+        }
+
+        .banner .subtitle {
+            font-size: 24px;
+            max-width: 600px;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn:first-child {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .btn:first-child:hover {
+            background-color: rgba(255,255,255,0.8);
+        }
+
+        .btn:last-child {
+            background-color: rgba(109, 109, 110, 0.7);
+            color: #fff;
+        }
+
+        .btn:last-child:hover {
+            background-color: rgba(109, 109, 110, 0.5);
+        }
+
+        /* Categories */
+        .category {
+            padding: 40px 50px;
+        }
+
+        .category span {
+            font-size: 22px;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .slider {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding-bottom: 10px;
+        }
+
+        .slider::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .slider::-webkit-scrollbar-track {
+            background: #2a2a2a;
+        }
+
+        .slider::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 4px;
+        }
+
+        .movie {
+            min-width: 250px;
+            height: 140px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .movie:hover {
+            transform: scale(1.05);
+        }
+
+        .movie img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 60px 50px 40px;
+            color: #808080;
+        }
+
+        .social {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        .social i {
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .social i:hover {
+            color: #fff;
+        }
+
+        .flex {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .info ul {
+            list-style: none;
+        }
+
+        .info li {
+            margin-bottom: 12px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .info li:hover {
+            color: #fff;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                padding: 15px 20px;
+            }
+
+            .menu-left {
+                display: none;
+            }
+
+            .banner {
+                padding: 0 20px;
+            }
+
+            .category {
+                padding: 30px 20px;
+            }
+
+            .flex {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer {
+                padding: 40px 20px 30px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
+    
+<div class="container">
+    <div class="hero">
+        <!-- Header -->
+        <header class="header">
+            <!-- Logo -->
+            <div class="logo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="NEXTFILM Logo">
+            </div>
 
-        <div class="hero">
-
-            <!--HEADER-->
-            <div class="header">
-
-                <div class="logo">
-                    <img src="./Imagens/netflix-2-logo.png" alt="">
+            <!-- Menu -->
+            <nav class="menu">
+                <!-- Menu Left -->
+                <div class="menu-left">
+                    <ul>
+                        <li><a href="#inicio">Início</a></li>
+                        <li><a href="#series">Séries</a></li>
+                        <li><a href="#filmes">Filmes</a></li>
+                        <li><a href="#recentes">Recentes</a></li>
+                        <li><a href="#lista">Minha Lista</a></li>
+                    </ul>
                 </div>
-
-                <div class="menu">
-
-                    <div class="menu-left">
-                        <ul>
-                            <li>Início</li>
-                            <li>Séries</li>
-                            <li>Filmes</li>
-                            <li>Bombando</li>
-                            <li>Minha lista</li>
-                        </ul>
-                    </div><!--fim do menu-left-->
-
-                    <!--menu-right-->
-                    <div class="menu-right">
-                        <ul>
-                            <li><i class="fa-solid fa-magnifying-glass"></i></li>
-                            <li>Infantil</li>
-                            <li><i class="fa-solid fa-gift"></i></li>
-                            <li><i class="fa-solid fa-bell"></i></li>
-                            <li class="user">
-                                <img src="./Imagens/Netflix-avatar.png" alt="">
-                                <i class="fa-solid fa-sort-down"></i></li>
-                            </li>
-                        </ul>
-                    </div>
-                </div><!-- fim do menu-->
-            </div><!-- fim header-->
-
-            <!--BANNER-->
-            <div class="banner">
-                <img src="./Imagens/banner.jpg" class="poster" alt="">
-                <span class="subtitle">
-                    A melhor plataforma de filmes e séries do mundo.
-                </span>
-                
-                <div class="buttons">
-                    <button class="btn"><i class="fa-solid fa-play"></i>Assistir</button>
-                    <button class="btn"><i class="fa-solid fa-plus"></i>Minha Lista</button>
+    
+                <!-- Menu Right -->
+                <div class="menu-right">
+                    <ul>
+                        <li><i class="fa-solid fa-magnifying-glass" aria-label="Buscar"></i></li>
+                        <li>Infantil</li>
+                        <li><i class="fa-solid fa-gift" aria-label="Presentes"></i></li>
+                        <li><i class="fa-solid fa-bell" aria-label="Notificações"></i></li>
+                        <li class="user">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmUTsEp-8HS9Rvem5UQdt2EBr01YMEzo9Y-Q&s" alt="Avatar do usuário">
+                            <i class="fa-solid fa-sort-down"></i>
+                        </li>
+                    </ul>
                 </div>
-            </div><!--fim do banner-->
+            </nav>
+        </header>
 
-            <!--categorias-->
-            <div class="category">
-                <span>Recomendados</span>
-                <div class="slider">
-                    <div class="movie">
-                        <img src="/Imagens/frame.1.jpg" alt="">
-                    </div>
-                    <div class="movie">
-                        <img src="/Imagens/frame.2.jpg" alt="">
-                    </div>
-                    <div class="movie">
-                        <img src="./Imagens/frame.3.jpg" alt="">
-                    </div>
-                    <div class="movie">
-                        <img src="/Imagens/frame.4.jpg" alt="">
-                    </div>
-                    <div class="movie">
-                        <img src="/Imagens/frame.5.jpg" alt="">
-                    </div>
-                    <div class="movie">
-                        <img src="/Imagens/frame.6.jpg" alt="">
-                    </div>
+        <!-- Banner Principal -->
+        <section class="banner">
+            <h1 class="subtitle">
+                A melhor plataforma de filmes e séries do mundo!
+            </h1>
+
+            <div class="buttons">
+                <button class="btn" aria-label="Assistir agora">
+                    <i class="fa-solid fa-play"></i>
+                    Assistir
+                </button>
+                <button class="btn" aria-label="Adicionar à minha lista">
+                    <i class="fa-solid fa-plus"></i>
+                    Minha Lista
+                </button>
+            </div>
+        </section>
+
+        <!-- Categoria: Recomendado -->
+        <section class="category">
+            <span>Recomendado</span>
+            <div class="slider">
+                <div class="movie">
+                    <img src="./Imagens/frame.1.jpg" alt="Filme recomendado 1">
                 </div>
-            </div><!--fim da categoria-->
-
-
-             <!--categorias-->
-            <div class="category">
-                <span>Top 10</span>
-                <div class="slider">
-                    <div class="movie">
-                        <img src="/Imagens/frame.7.jpg" alt="">
-                    </div>
-                    <div class="movie">
-                        <img src="/Imagens/frame.8.jpg" alt="">
-                    </div>
-                    <div class="movie">
-                        <img src="./Imagens/frame.9.jpeg" alt="">
-                    </div>
-                    <div class="movie">
-                        <img src="/Imagens/frame.10.jpg" alt="">
-                    </div>
-                    <div class="movie">
-                        <img src="/Imagens/frame.11.jpg" alt="">
-                    </div>
-                    <div class="movie">
-                        <img src="/Imagens/frame.12.jpg" alt="">
-                    </div>
+                <div class="movie">
+                    <img src="./Imagens/frame.2.jpg" alt="Filme recomendado 2">
                 </div>
-            </div><!--fim da categoria-->
+                <div class="movie">
+                    <img src="./Imagens/frame.3.jpg" alt="Filme recomendado 3">
+                </div>
+                <div class="movie">
+                    <img src="./Imagens/frame.4.jpg" alt="Filme recomendado 4">
+                </div>
+                <div class="movie">
+                    <img src="./Imagens/frame.5.jpg" alt="Filme recomendado 5">
+                </div>
+                <div class="movie">
+                    <img src="./Imagens/frame.6.jpg" alt="Filme recomendado 6">
+                </div>
+            </div>
+        </section>
 
+        <!-- Categoria: Top Movies -->
+        <section class="category">
+            <span>Top Movies</span>
+            <div class="slider">
+                <div class="movie">
+                    <img src="./Imagens/frame.7.jpg" alt="Top filme 1">
+                </div>
+                <div class="movie">
+                    <img src="./Imagens/frame.8.jpg" alt="Top filme 2">
+                </div>
+                <div class="movie">
+                    <img src="./Imagens/frame.9.jpg" alt="Top filme 3">
+                </div>
+                <div class="movie">
+                    <img src="./Imagens/frame.10.jpeg" alt="Top filme 4">
+                </div>
+                <div class="movie">
+                    <img src="./Imagens/frame.11.jpg" alt="Top filme 5">
+                </div>
+                <div class="movie">
+                    <img src="./Imagens/frame.12.jpg" alt="Top filme 6">
+                </div>
+            </div>
+        </section>
 
-<!--FOOTER-->
-<div class="footer">
-    <div class="social">
-        <i class="fa-brands fa-facebook"></i>
-        <i class="fa-brands fa-instagram"></i>
-        <i class="fa-brands fa-x-twitter"></i>
-        <i class="fa-brands fa-youtube"></i>
-        </div><!--fim da social-->
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="social">
+                <i class="fab fa-facebook-f" aria-label="Facebook"></i>
+                <i class="fab fa-instagram" aria-label="Instagram"></i>
+                <i class="fa-brands fa-square-twitter" aria-label="Twitter"></i>
+                <i class="fab fa-youtube" aria-label="YouTube"></i>
+            </div>
 
             <div class="flex">
                 <div class="info">
                     <ul>
-                        <li>Idioma e Legendas</li>
+                        <li>Idioma e legendas</li>
+                        <li>Imprensa</li>
                         <li>Privacidade</li>
-                        <li>Entre em contado</li>
-                        <li>Faça seu cadastro</li>
+                        <li>Entre em contato</li>
                     </ul>
                 </div>
 
                 <div class="info">
                     <ul>
-                        <li>Idioma e Legendas</li>
-                        <li>Privacidade</li>
-                        <li>Entre em contado</li>
-                        <li>Faça seu cadastro</li>
+                        <li>Audiodescrição</li>
+                        <li>Relações com investidores</li>
+                        <li>Avisos legais</li>
+                        <li>Cadastre seu filme</li>
                     </ul>
                 </div>
 
                 <div class="info">
                     <ul>
-                        <li>Idioma e Legendas</li>
-                        <li>Privacidade</li>
-                        <li>Entre em contado</li>
-                        <li>Faça seu cadastro</li>
+                        <li>Centro de ajuda</li>
+                        <li>Carreiras</li>
+                        <li>Preferências de cookies</li>
+                        <li>Termos de uso</li>
                     </ul>
                 </div>
 
                 <div class="info">
                     <ul>
-                        <li>Idioma e Legendas</li>
-                        <li>Privacidade</li>
-                        <li>Entre em contado</li>
-                        <li>Faça seu cadastro</li>
+                        <li>Cartão pré-pago</li>
+                        <li>Formas de assistir</li>
+                        <li>Informações corporativas</li>
+                        <li>Só na NEXTFILM</li>
                     </ul>
                 </div>
-            </div><!--fim do flex-->
+            </div>
+        </footer>
+    </div>
+</div>
 
-        </div><!--fim do footer-->
-    </div><!--hero section-->
-</div><!--container-->
+<script>
+    // Header com fundo ao rolar
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('.header');
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+</script>
 
-    <script src="https://kit.fontawesome.com/27a76fa80e.js" crossorigin="anonymous"></script>
 </body>
 </html>

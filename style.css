@@ -1,177 +1,452 @@
-*{
+/* ========================================
+   RESET E CONFIGURAÇÕES GLOBAIS
+   ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
-body{
-    margin: 0 auto;
-    padding: 0;
-    font-family: arial;
-    background-color: black;
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #141414;
+    color: #fff;
+    overflow-x: hidden;
 }
 
-.container{
-    height: 100vh;
-    background-image:linear-gradient(
-        to bottom, 
-        rgba(0, 0, 0, 0.8) 0%, 
-        rgba(0, 0, 0, 0.2) 20%,
-        rgba(20, 20, 20, 0.2) 80%,
-        rgba(20, 20, 20, 1) 100%
-    ),
-    url(./imgens/poster.jpg);
+/* ========================================
+   CONTAINER PRINCIPAL
+   ======================================== */
+
+.container {
+    min-height: 100vh;
+    background-image: 
+        linear-gradient(
+            to bottom, 
+            rgba(0, 0, 0, 0.8) 0%, 
+            rgba(0, 0, 0, 0.4) 20%,
+            rgba(20, 20, 20, 0.6) 80%,
+            rgba(20, 20, 20, 1) 100%
+        ),
+        url(./Imagens/frieren-poster-png.png);
     background-size: cover;
-    padding: 0.26rem 0.75rem 0 0.75rem;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding: 0;
 }
+
+/* ========================================
+   HERO SECTION
+   ======================================== */
 
 .hero {
     width: 100%;
+    max-width: 100%;
     margin: 0 auto;
-    height: 100%;
-    padding: 0 0 3rem;
+    min-height: 100vh;
+    padding-bottom: 3rem;
 }
+
+/* ========================================
+   HEADER E NAVEGAÇÃO
+   ======================================== */
 
 header {
-display: flex;
-align-items: center;
+    display: flex;
+    align-items: center;
+    padding: 1.25rem 3.75rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: linear-gradient(
+        180deg, 
+        rgba(0, 0, 0, 0.7) 0%, 
+        rgba(0, 0, 0, 0) 100%
+    );
+    transition: background-color 0.3s ease;
 }
 
-.logo img{
+header.scrolled {
+    background-color: #141414;
+}
+
+.logo img {
     width: 5.8rem;
+    height: auto;
+    display: block;
 }
 
-.menu{
+/* Menu Navigation */
+.menu {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 100%;
     align-items: center;
+    width: 100%;
+    margin-left: 2.5rem;
+}
+
+.menu ul {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    gap: 1.25rem;
 }
 
 .menu-left,
-.menu-right{
+.menu-right {
     display: flex;
-    color: white;
-    font-size: .87rem;
-}
-
-.menu ul{
-    display: flex;
-    list-style: none;
-    align-items: center;
-}
-
-.menu ul li{
-    padding-right:.9rem;
-}
-
-.menu .user img{
-    width: 2rem;
-    margin: .5rem;
-}
-
-.menu .user{
-    display: flex;
-    align-items: center;
-}
-
-.menu i{
-    font-size: 20px;
-}
-
-.menu-right ul li{
-    padding-right: 1.5rem;
-}
-
-.banner{
-    height: 80%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 50%;
-}
-
-.banner .poster{
-    width: 450px;
-}
-
-.banner.subtitle{
-    font-size: 1.25rem;
-    color: #fff;
-    line-height: 1.25rem;
-    padding-top: .5rem;
-}
-.buttons{
-    margin-top: 2rem;
-}
-
-.buttons .bnt{
-    color: #fff;
-    padding: 0.6rem 2rem;
-    margin: .75rem;
-    font-weight: 600;
-    border-radius:0.125rem;
-    background: rgba(51, 51, 51, 0.4);
-    font-family: inherit;
-    font-size: 100%;
-    border: 0;
-}
-
-.buttons .bnt i{
-    margin-right: 0.5rem ;
-}
-
-.category{
-    height: 200px;
-}
-
-.category span{
     color: #e5e5e5;
-    font-size: 18px;
-    line-height:17px ;
-    font-weight: 600;
+    font-size: 0.875rem;
 }
 
-.slider{
-    margin-top: .8rem;
+.menu ul li {
+    cursor: pointer;
+    transition: color 0.3s ease;
+    font-weight: 500;
+}
+
+.menu ul li:hover {
+    color: #b3b3b3;
+}
+
+.menu i {
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.menu i:hover {
+    transform: scale(1.1);
+}
+
+/* User Menu */
+.menu .user {
     display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.menu .user img {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.25rem;
+    object-fit: cover;
+}
+
+/* ========================================
+   BANNER PRINCIPAL
+   ======================================== */
+
+.banner {
+    padding: 12rem 3.75rem 3rem;
+    max-width: 50%;
+}
+
+.banner .subtitle {
+    font-size: 1.5rem;
+    color: #fff;
+    line-height: 1.4;
+    font-weight: 400;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    margin-bottom: 1.5rem;
+}
+
+/* Botões do Banner */
+.buttons {
+    margin-top: 2rem;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    color: #fff;
+    padding: 0.75rem 2rem;
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+    background-color: rgba(109, 109, 110, 0.7);
+    font-family: inherit;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn:hover {
+    background-color: rgba(109, 109, 110, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn i {
+    font-size: 1rem;
+}
+
+/* Botão primário (Assistir) */
+.btn:first-child {
+    background-color: #fff;
+    color: #000;
+}
+
+.btn:first-child:hover {
+    background-color: rgba(255, 255, 255, 0.75);
+}
+
+/* ========================================
+   CATEGORIAS E SLIDERS
+   ======================================== */
+
+.category {
+    padding: 3rem 3.75rem;
+    margin-bottom: 2rem;
+}
+
+.category span {
+    color: #e5e5e5;
+    font-size: 1.4rem;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.slider {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    padding-bottom: 1rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Scrollbar personalizada */
+.slider::-webkit-scrollbar {
+    height: 0.5rem;
+}
+
+.slider::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 0.25rem;
+}
+
+.slider::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 0.25rem;
+}
+
+.slider::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.slider .movie {
+    min-width: 300px;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 0.25rem;
     overflow: hidden;
-    position: absolute;
-    left: 3.75rem;
-    right: 0;
 }
 
-
-
-.slider .movie img{
-    max-width: 100%;
-    padding-right: 5px;
+.slider .movie:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+    z-index: 10;
 }
 
-.footer{
-    margin: 100px auto 0;
-    width:80%;
+.slider .movie img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 0.25rem;
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+
+.footer {
+    margin: 6rem auto 0;
+    padding: 2rem 3.75rem 3rem;
     color: #808080;
+    max-width: 100%;
 }
 
-.footer .social{
-    padding-right: 26px;
-    font-size: 26px;
-}
-.flex{
+.footer .social {
     display: flex;
-    padding-bottom: 80px;
+    gap: 2rem;
+    padding: 1.5rem 0;
+    font-size: 1.5rem;
 }
 
-.footer .info{
-    width: 25%;
+.footer .social i {
+    cursor: pointer;
+    transition: color 0.3s ease;
 }
 
-.footer .info ul{
+.footer .social i:hover {
+    color: #e5e5e5;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem 0 5rem;
+    gap: 2rem;
+}
+
+.footer .info {
+    flex: 1;
+}
+
+.footer .info ul {
     list-style: none;
-    display: inline;
-    font-size: 12px;
+    padding: 0;
 }
 
-.footer .info ul li{
-    margin-top: 8px;
+.footer .info ul li {
+    margin-bottom: 0.75rem;
+    font-size: 0.8125rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.footer .info ul li:hover {
+    color: #e5e5e5;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media screen and (max-width: 1024px) {
+    .banner {
+        max-width: 70%;
+    }
+    
+    .slider .movie {
+        min-width: 250px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    header {
+        padding: 1rem 1.5rem;
+    }
+    
+    .logo img {
+        width: 4.5rem;
+    }
+    
+    .menu {
+        margin-left: 1rem;
+    }
+    
+    .menu-left {
+        display: none;
+    }
+    
+    .menu-right ul {
+        gap: 0.75rem;
+    }
+    
+    .menu ul li {
+        font-size: 0.75rem;
+    }
+    
+    .banner {
+        padding: 10rem 1.5rem 2rem;
+        max-width: 90%;
+    }
+    
+    .banner .subtitle {
+        font-size: 1.125rem;
+    }
+    
+    .category {
+        padding: 2rem 1.5rem;
+    }
+    
+    .slider .movie {
+        min-width: 200px;
+    }
+    
+    .footer {
+        padding: 2rem 1.5rem 3rem;
+    }
+    
+    .flex {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .footer .info {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .logo img {
+        width: 3.5rem;
+    }
+    
+    .banner .subtitle {
+        font-size: 1rem;
+    }
+    
+    .btn {
+        padding: 0.625rem 1.5rem;
+        font-size: 0.875rem;
+    }
+    
+    .category span {
+        font-size: 1.125rem;
+    }
+    
+    .slider .movie {
+        min-width: 150px;
+    }
+}
+
+/* ========================================
+   UTILIDADES
+   ======================================== */
+
+/* Animação suave para todos os elementos */
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Remove outline padrão mas mantém acessibilidade */
+*:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
+}
+
+/* Melhora a performance de animações */
+.slider .movie,
+.btn,
+.menu ul li {
+    will-change: transform;
+}
+
+/* Previne seleção de texto em elementos interativos */
+.btn,
+.menu ul li,
+.slider .movie {
+    user-select: none;
+    -webkit-user-select: none;
 }
